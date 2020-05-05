@@ -19,7 +19,7 @@ class profile_firewall::pre {
         action  => 'accept',
     }
 
-    firewall { '003 accept related established':
+    firewall { '002 accept related established':
         proto  => 'all',
         state  => ['RELATED', 'ESTABLISHED'],
         action => 'accept',
