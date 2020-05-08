@@ -6,6 +6,7 @@
 **Classes**
 
 * [`profile_firewall`](#profile_firewall): Initial firewall configuration
+* [`profile_firewall::builtin_chains`](#profile_firewallbuiltin_chains): Pre-define built-in chains to puppet
 * [`profile_firewall::post`](#profile_firewallpost): Default firewall post rule, Drop all
 * [`profile_firewall::pre`](#profile_firewallpre): Basic firewall setup
 
@@ -23,27 +24,50 @@ Initial firewall configuration
 include profile_firewall
 ```
 
+#### Parameters
+
+The following parameters are available in the `profile_firewall` class.
+
+##### `manage_builtin_chains`
+
+Data type: `Boolean`
+
+If true (default), then pre-define built-in iptables chains.
+Set to false if another profile will manage built-in chains (e.g.
+profile_docker).
+See also: https://forge.puppet.com/puppetlabs/firewall
+
+Default value: `true`
+
+### profile_firewall::builtin_chains
+
+Pre-define built-in chains to puppet
+
+Prevent puppet from trying to remove builtin chains,
+which will fail and cause unneccesary warnings.
+
+Included by profile_firewall if $profile_firewall::manage_builtin_chains is true.
+
+#### Parameters
+
+The following parameters are available in the `profile_firewall::builtin_chains` class.
+
+##### `tables`
+
+Data type: `Hash[ String[1], Hash[ String[1], Array, 1 ], 1 ]`
+
+Default (built-in) table names and a
+list of chains and versions for each.
+
 ### profile_firewall::post
 
 Default firewall post rule, Drop all
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_firewall::post
-```
+Included by profile_firewall
 
 ### profile_firewall::pre
 
 Basic firewall setup
 
-#### Examples
-
-##### 
-
-```puppet
-include profile_firewall::pre
-```
+Included by profile_firewall
 

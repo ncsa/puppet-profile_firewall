@@ -1,1 +1,39 @@
 ---
+profile_firewall::manage_builtin_chains: true
+
+profile_firewall::builtin_chains::tables:
+    filter:
+        chains:
+            - "INPUT"
+            - "OUTPUT"
+            - "FORWARD"
+        protocols:
+            - "IPv4"
+            - "IPv6"
+            - "ethernet"
+    nat:
+        chains:
+            - "PREROUTING"
+            - "POSTROUTING"
+            - "INPUT"
+            - "OUTPUT"
+        protocols:
+            - "IPv4"
+            - "IPv6"
+    mangle:
+        chains:
+            - "INPUT"
+            - "OUTPUT"
+            - "FORWARD"
+            - "PREROUTING"
+            - "POSTROUTING"
+        protocols:
+            - "IPv4"
+            - "IPv6"
+    raw:
+        chains:
+            - "OUTPUT"
+            - "PREROUTING"
+        protocols:
+            - "IPv4"
+            - "IPv6"

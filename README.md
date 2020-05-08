@@ -9,6 +9,12 @@ mod 'ncsa/profile_firewall', branch: 'production', git: 'https://github.com/ncsa
 ```
 
 ## Reference
+
+### class profile_firewall (
+-  Boolean $manage_builtin_chains = true,
+### class profile_firewall::builtin_chains (
+-  Hash[ String[1], Hash[ String[1], Array, 1 ], 1 ] $tables,
+
 See: [REFERENCE](REFERENCE.md)
 
 ## Contributing

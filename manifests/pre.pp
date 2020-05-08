@@ -1,7 +1,8 @@
 # @summary Basic firewall setup
 #
-# @example
-#   include profile_firewall::pre
+# Basic firewall setup
+#
+# Included by profile_firewall
 class profile_firewall::pre {
 
     Firewall {
