@@ -32,9 +32,9 @@ class profile_firewall (
   include ::profile_firewall::pre
   include ::profile_firewall::post
 
-  notify { "manage_builtin_chains is ${$manage_builtin_chains}" : }
+  #  notify { "manage_builtin_chains is ${$manage_builtin_chains}" : }
   if $manage_builtin_chains {
-    notify { 'about to include ::profile_firewall::builtin_chains' : }
+    # notify { 'about to include ::profile_firewall::builtin_chains' : }
     include ::profile_firewall::builtin_chains
   }
 
