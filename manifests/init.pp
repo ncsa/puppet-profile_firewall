@@ -12,13 +12,17 @@ class profile_firewall (
   Boolean $manage_builtin_chains,
 ) {
 
-  resources { 'firewall':
-    purge =>  true,
-  }
-
-  resources { 'firewallchain':
-    purge =>  true,
-  }
+  # DON'T EVER DO THIS ---
+  # SEE: https://tickets.puppetlabs.com/browse/MODULES-5171
+  # specifically..."using the resources resource will just purge 
+  #                 all resources independent of the ignore statement"
+  # --- YOU HAVE BEEN WARNED
+  # resources { 'firewall':
+  #   purge =>  true,
+  # }
+  # resources { 'firewallchain':
+  #   purge =>  true,
+  # }
 
   Firewall {
     require =>  Class['profile_firewall::pre'],
