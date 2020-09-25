@@ -1,39 +1,70 @@
 ---
-profile_firewall::manage_builtin_chains: true
+lookup_options:
+  profile_firewall::ignores:
+    merge:
+      strategy: "deep"
+      merge_hash_arrays: true
+  profile_firewall::inbuilt_chains:
+    merge: "hash"
 
-profile_firewall::builtin_chains::tables:
-    filter:
-        chains:
-            - "INPUT"
-            - "OUTPUT"
-            - "FORWARD"
-        protocols:
-            - "IPv4"
-            - "IPv6"
-            - "ethernet"
-    nat:
-        chains:
-            - "PREROUTING"
-            - "POSTROUTING"
-            - "INPUT"
-            - "OUTPUT"
-        protocols:
-            - "IPv4"
-            - "IPv6"
-    mangle:
-        chains:
-            - "INPUT"
-            - "OUTPUT"
-            - "FORWARD"
-            - "PREROUTING"
-            - "POSTROUTING"
-        protocols:
-            - "IPv4"
-            - "IPv6"
-    raw:
-        chains:
-            - "OUTPUT"
-            - "PREROUTING"
-        protocols:
-            - "IPv4"
-            - "IPv6"
+profile_firewall::ignores:
+  INPUT:filter:IPv4:
+    - "-j neutron-"
+  FORWARD:filter:IPv4:
+    - "-j neutron-"
+  OUTPUT:filter:IPv4:
+    - "-j neutron-"
+
+profile_firewall::inbuilt_chains:
+  FORWARD:filter:IPv4:
+  FORWARD:filter:IPv6:
+  FORWARD:filter:ethernet:
+  INPUT:filter:IPv4:
+  INPUT:filter:IPv6:
+  INPUT:filter:ethernet:
+  OUTPUT:filter:IPv4:
+  OUTPUT:filter:IPv6:
+  OUTPUT:filter:ethernet:
+
+  INPUT:nat:IPv4:
+  INPUT:nat:IPv6:
+  PREROUTING:nat:IPv4:
+  PREROUTING:nat:IPv6:
+  POSTROUTING:nat:IPv4:
+  POSTROUTING:nat:IPv6:
+  OUTPUT:nat:IPv4:
+  OUTPUT:nat:IPv6:
+
+  FORWARD:mangle:IPv4:
+  FORWARD:mangle:IPv6:
+  INPUT:mangle:IPv4:
+  INPUT:mangle:IPv6:
+  OUTPUT:mangle:IPv4:
+  OUTPUT:mangle:IPv6:
+  POSTROUTING:mangle:IPv4:
+  POSTROUTING:mangle:IPv6:
+  PREROUTING:mangle:IPv4:
+  PREROUTING:mangle:IPv6:
+
+  OUTPUT:raw:IPv4:
+  OUTPUT:raw:IPv6:
+  PREROUTING:raw:IPv4:
+  PREROUTING:raw:IPv6:
+
+profile_firewall::pre:
+  "000 accept all icmp":
+    proto: "icmp"
+    action: "accept"
+  "001 accept all to lo":
+    proto: "all"
+    iniface: "lo"
+    action: "accept"
+  "002 accept related established":
+    proto: "all"
+    state: ["RELATED", "ESTABLISHED"]
+    action: "accept"
+
+profile_firewall::post:
+  "999 drop all":
+    proto: "all"
+    action: "drop"
