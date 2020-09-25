@@ -30,7 +30,7 @@ class profile_firewall (
   }
 
   class { 'firewall':
-      ebtables_manage => true,
+    ebtables_manage => true,
   }
 
   include ::profile_firewall::pre
