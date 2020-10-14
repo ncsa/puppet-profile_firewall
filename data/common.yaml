@@ -7,6 +7,8 @@ lookup_options:
   profile_firewall::inbuilt_chains:
     merge: "hash"
 
+profile_firewall::ignores: {}
+
 profile_firewall::inbuilt_chains:
   FORWARD:filter:IPv4:
   FORWARD:filter:IPv6:
