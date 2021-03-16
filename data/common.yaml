@@ -7,6 +7,8 @@ lookup_options:
   profile_firewall::inbuilt_chains:
     merge: "hash"
 
+profile_firewall::purge_all: true
+
 profile_firewall::ignores: {}
 
 profile_firewall::inbuilt_chains:
@@ -24,10 +26,13 @@ profile_firewall::inbuilt_chains:
   INPUT:nat:IPv6:
   PREROUTING:nat:IPv4:
   PREROUTING:nat:IPv6:
+  PREROUTING:nat:ethernet:
   POSTROUTING:nat:IPv4:
   POSTROUTING:nat:IPv6:
+  POSTROUTING:nat:ethernet:
   OUTPUT:nat:IPv4:
   OUTPUT:nat:IPv6:
+  OUTPUT:nat:ethernet:
 
   FORWARD:mangle:IPv4:
   FORWARD:mangle:IPv6:
@@ -45,10 +50,14 @@ profile_firewall::inbuilt_chains:
   PREROUTING:raw:IPv4:
   PREROUTING:raw:IPv6:
 
+  INPUT:security:IPv4:
+  FORWARD:security:IPv4:
+  OUTPUT:security:IPv4:
+  INPUT:security:IPv6:
+  FORWARD:security:IPv6:
+  OUTPUT:security:IPv6:
+
 profile_firewall::pre:
-  "000 accept all icmp":
-    proto: "icmp"
-    action: "accept"
   "001 accept all to lo":
     proto: "all"
     iniface: "lo"
@@ -57,8 +66,32 @@ profile_firewall::pre:
     proto: "all"
     state: ["RELATED", "ESTABLISHED"]
     action: "accept"
+  "003 Accept all icmp from NCSA":
+    proto: "icmp"
+    source: "141.142.0.0/16"
+    action: "accept"
+  "004 Accept all icmp from NCSA":
+    proto: "icmp"
+    source: "10.142.0.0/16"
+    action: "accept"
+  "005 Accept all icmp from NCSA":
+    proto: "icmp"
+    source: "172.24.0.0/13"
+    action: "accept"
+  "006 Accept all icmp from Nagios Campus Monitoring":
+    proto: "icmp"
+    source: "192.17.18.68/32"
+    action: "accept"
+  "007 Accept only icmp echo from everyone else":
+    proto: "icmp"
+    icmp: "8"
+    action: "accept"
 
 profile_firewall::post:
   "999 drop all":
     proto: "all"
     action: "drop"
+  "999 drop all ipv6":
+    proto: "all"
+    action: "drop"
+    provider: "ip6tables"
