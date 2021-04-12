@@ -11,6 +11,8 @@ profile_firewall::purge_all: true
 
 profile_firewall::ignores: {}
 
+# Leave some generic inbuilt_chains, but each OS should have their own
+# copy of inbuilt_chains in hiera under data/os/..
 profile_firewall::inbuilt_chains:
   FORWARD:filter:IPv4:
   FORWARD:filter:IPv6:
