@@ -10,7 +10,7 @@
 
 ## Classes
 
-### `profile_firewall`
+### <a name="profile_firewall"></a>`profile_firewall`
 
 Initial firewall configuration
 
@@ -24,9 +24,16 @@ include profile_firewall
 
 #### Parameters
 
-The following parameters are available in the `profile_firewall` class.
+The following parameters are available in the `profile_firewall` class:
 
-##### `ignores`
+* [`ignores`](#ignores)
+* [`pre`](#pre)
+* [`post`](#post)
+* [`rules`](#rules)
+* [`inbuilt_chains`](#inbuilt_chains)
+* [`purge_all`](#purge_all)
+
+##### <a name="ignores"></a>`ignores`
 
 Data type: `Hash`
 
@@ -38,7 +45,7 @@ Values must be an Array of strings in Ruby regex format.
 See README for some basic examples, or the following for more details:
 https://forge.puppet.com/puppetlabs/firewall/reference#firewallchain
 
-##### `pre`
+##### <a name="pre"></a>`pre`
 
 Data type: `Hash`
 
@@ -49,7 +56,7 @@ added before higher numbers.
 See README for some basic examples, or the following for more details:
 https://forge.puppet.com/puppetlabs/firewall/readme#beginning-with-firewall
 
-##### `post`
+##### <a name="post"></a>`post`
 
 Data type: `Hash`
 
@@ -60,7 +67,18 @@ added before higher numbers.
 See README for some basic examples, or the following for more details:
 https://forge.puppet.com/puppetlabs/firewall/readme#beginning-with-firewall
 
-##### `inbuilt_chains`
+##### <a name="rules"></a>`rules`
+
+Data type: `Hash`
+
+Generic firewall rules.
+Keys must begin with a 3-digit numer followed by a comment.
+The 3-digit number indicates firewall rule order, lower numbered rules are
+added before higher numbers.
+See README for some basic examples, or the following for more details:
+https://forge.puppet.com/puppetlabs/firewall/readme#beginning-with-firewall
+
+##### <a name="inbuilt_chains"></a>`inbuilt_chains`
 
 Data type: `Hash`
 
@@ -68,7 +86,7 @@ Default Linux chains. Module defaults should be sufficient.
 Keys must be in "CHAIN:TABLE:PROTOCOL" format.
 Values must be Hash of valid puppetlabs::firewallchain parameters
 
-##### `purge_all`
+##### <a name="purge_all"></a>`purge_all`
 
 Data type: `Boolean`
 

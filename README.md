@@ -61,6 +61,7 @@ By default `profile_firewall::purge_all` is set to true, the side effect of sett
 -  Hash $post,
 -  Hash $pre,
 -  Boolean $purge_all,
+-  Hash $rules,
 
 See: [REFERENCE](REFERENCE.md)
 

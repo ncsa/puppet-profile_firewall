@@ -97,3 +97,5 @@ profile_firewall::post:
     proto: "all"
     action: "drop"
     provider: "ip6tables"
+
+profile_firewall::rules: {}

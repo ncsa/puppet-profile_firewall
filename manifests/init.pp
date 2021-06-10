@@ -25,6 +25,14 @@
 #   See README for some basic examples, or the following for more details:
 #   https://forge.puppet.com/puppetlabs/firewall/readme#beginning-with-firewall
 #
+# @param rules
+#   Generic firewall rules.
+#   Keys must begin with a 3-digit numer followed by a comment.
+#   The 3-digit number indicates firewall rule order, lower numbered rules are
+#   added before higher numbers.
+#   See README for some basic examples, or the following for more details:
+#   https://forge.puppet.com/puppetlabs/firewall/readme#beginning-with-firewall
+#
 # @param inbuilt_chains
 #   Default Linux chains. Module defaults should be sufficient.
 #   Keys must be in "CHAIN:TABLE:PROTOCOL" format.
@@ -44,6 +52,7 @@ class profile_firewall (
   Hash $post,
   Hash $pre,
   Boolean $purge_all,
+  Hash $rules,
 ) {
 
   # Check if we are using $ignores to decide if we should purge all unmanaged rules
@@ -105,6 +114,9 @@ class profile_firewall (
   }
 
   create_resources( firewall, $pre )
+  if ( $rules ) {
+    create_resources( firewall, $rules )
+  }
   create_resources( firewall, $post )
 
 }
