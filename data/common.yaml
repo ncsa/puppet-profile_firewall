@@ -68,25 +68,35 @@ profile_firewall::pre:
     proto: "all"
     state: ["RELATED", "ESTABLISHED"]
     action: "accept"
-  "003 Accept all icmp from NCSA":
-    proto: "icmp"
-    source: "141.142.0.0/16"
-    action: "accept"
-  "004 Accept all icmp from NCSA":
-    proto: "icmp"
-    source: "10.142.0.0/16"
-    action: "accept"
-  "005 Accept all icmp from NCSA":
-    proto: "icmp"
-    source: "172.24.0.0/13"
-    action: "accept"
-  "006 Accept all icmp from Nagios Campus Monitoring":
+  "003 Accept all ICMP from Nagios Campus Monitoring":
     proto: "icmp"
     source: "192.17.18.68/32"
     action: "accept"
-  "007 Accept only icmp echo from everyone else":
+  "003 Accept all ICMP for NCSA public":
+    proto: "icmp"
+    source: "141.142.0.0/16"
+    action: "accept"
+  "003 Accept all ICMP for NCSA old internal":
+    proto: "icmp"
+    source: "10.142.0.0/16"
+    action: "accept"
+  "003 Accept all ICMP for NCSA internal":
+    proto: "icmp"
+    source: "172.24.0.0/13"
+    action: "accept"
+  "004 Accept ICMP Echo to allow pings from outside":
     proto: "icmp"
     icmp: "8"
+    action: "accept"
+  "005 Accept ICMP Destination Unreachable to allow PMTU to work properly":
+    proto: "icmp"
+    icmp: "3"
+    state: ["NEW", "ESTABLISHED", "RELATED"]
+    action: "accept"
+  "006 Accept ICMP Time Exceeded/TTL expired to allow denote expired TTL":
+    proto: "icmp"
+    icmp: "11"
+    state: ["NEW", "ESTABLISHED", "RELATED"]
     action: "accept"
 
 profile_firewall::post:
