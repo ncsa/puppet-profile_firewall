@@ -64,6 +64,11 @@ profile_firewall::pre:
     proto: "all"
     iniface: "lo"
     action: "accept"
+  "001 accept all to lo IPv6":
+    proto: "all"
+    iniface: "lo"
+    action: "accept"
+    provider: "ip6tables"
   "002 accept related established":
     proto: "all"
     state: ["RELATED", "ESTABLISHED"]
