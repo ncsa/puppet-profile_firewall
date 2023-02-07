@@ -27,11 +27,11 @@ include profile_firewall
 The following parameters are available in the `profile_firewall` class:
 
 * [`ignores`](#ignores)
+* [`ignore_chain_prefixes`](#ignore_chain_prefixes)
 * [`pre`](#pre)
 * [`post`](#post)
 * [`rules`](#rules)
 * [`inbuilt_chains`](#inbuilt_chains)
-* [`purge_all`](#purge_all)
 
 ##### <a name="ignores"></a>`ignores`
 
@@ -44,6 +44,15 @@ Keys must be in "CHAIN:TABLE:PROTOCOL" format.
 Values must be an Array of strings in Ruby regex format.
 See README for some basic examples, or the following for more details:
 https://forge.puppet.com/puppetlabs/firewall/reference#firewallchain
+
+##### <a name="ignore_chain_prefixes"></a>`ignore_chain_prefixes`
+
+Data type: `Array`
+
+List of strings.
+All existing iptables chains will be collected by a custom fact.
+If any chain name starts with one of these prefixes, that chain, and
+any rules in that chain, will be ignored by Puppet.
 
 ##### <a name="pre"></a>`pre`
 
@@ -85,13 +94,4 @@ Data type: `Hash`
 Default Linux chains. Module defaults should be sufficient.
 Keys must be in "CHAIN:TABLE:PROTOCOL" format.
 Values must be Hash of valid puppetlabs::firewallchain parameters
-
-##### <a name="purge_all"></a>`purge_all`
-
-Data type: `Boolean`
-
-Used to control if Puppet will purge all unmanaged firewall rules and all unmanaged
-firewallchains.
-Default is true, if you plan on using $ignores you need to set this to false
-See https://tickets.puppetlabs.com/browse/MODULES-5171 (and README) for why this is needed
 
