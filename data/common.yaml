@@ -7,7 +7,9 @@ lookup_options:
   profile_firewall::inbuilt_chains:
     merge: "hash"
 
-profile_firewall::purge_all: true
+# profile_firewall::purge_all: true
+
+profile_firewall::ignore_chain_prefixes: []
 
 profile_firewall::ignores: {}
 
