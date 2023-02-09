@@ -89,7 +89,7 @@ class profile_firewall (
     $ignore_chain_prefixes.each | $pfx | {
       $facts['custom_firewallchains'].each | $chain, $data | {
         if $chain.stdlib::start_with( $pfx ) {
-          notify { "IGNORE CHAIN ${chain}:${data['table']}:${data['protocol']}": }
+          # notify { "IGNORE CHAIN ${chain}:${data['table']}:${data['protocol']}": }
           firewallchain { "${chain}:${data['table']}:${data['protocol']}" :
             purge => false,
           }
