@@ -54,7 +54,6 @@ class profile_firewall (
   Hash    $pre,
   Hash    $rules,
 ) {
-
   class { 'firewall':
     ebtables_manage => true,
   }
@@ -66,13 +65,12 @@ class profile_firewall (
   if empty($ignores) and empty($ignore_chain_prefixes) {
     # Not using ignores, ok to purge all
     resources { 'firewall':
-      purge =>  true,
+      purge => true,
     }
     resources { 'firewallchain':
-      purge =>  true,
+      purge => true,
     }
   } else {
-
     # Ignore any non-standard chains matching specified prefixes
     $ignore_chain_prefixes.each | $pfx | {
       $facts['custom_firewallchains'].each | $chain, $data | {
@@ -91,7 +89,6 @@ class profile_firewall (
       purge  => true,
     }
     $inbuilt_chains.each | $chain_name, $inbuilt_params | {
-
       # Combine params from hiera with chain defaults
       $custom_params = $inbuilt_params ? {
         undef   => $default_params,
@@ -110,9 +107,8 @@ class profile_firewall (
       # }
 
       firewallchain { $chain_name :
-          * => $chain_params,
+        * => $chain_params,
       }
-
     }
   }
 
@@ -121,5 +117,4 @@ class profile_firewall (
     create_resources( firewall, $rules )
   }
   create_resources( firewall, $post )
-
 }
