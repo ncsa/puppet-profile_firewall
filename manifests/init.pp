@@ -70,8 +70,17 @@ class profile_firewall (
     resources { 'firewallchain':
       purge => true,
     }
+    $default_chain_params = {
+      ensure => present,
+      purge  => true,
+      before => Resources['firewallchain'],
+    }
   } else {
     # Ignore any non-standard chains matching specified prefixes
+    $default_chain_params = {
+      ensure => present,
+      purge  => true,
+    }
     $ignore_chain_prefixes.each | $pfx | {
       $facts['custom_firewallchains'].each | $chain, $data | {
         if $chain.stdlib::start_with( $pfx ) {
@@ -82,33 +91,29 @@ class profile_firewall (
         }
       }
     }
+  }
 
-    # CREATE DEFAULT CHAINS
-    $default_params = {
-      ensure => present,
-      purge  => true,
+  # CREATE DEFAULT CHAINS
+  $inbuilt_chains.each | $chain_name, $inbuilt_params | {
+    # Combine params from hiera with chain defaults
+    $custom_chain_params = $inbuilt_params ? {
+      undef   => $default_chain_params,
+      default => $default_chain_params + $inbuilt_params,
     }
-    $inbuilt_chains.each | $chain_name, $inbuilt_params | {
-      # Combine params from hiera with chain defaults
-      $custom_params = $inbuilt_params ? {
-        undef   => $default_params,
-        default => $default_params + $inbuilt_params,
-      }
 
-      # Add any ignores for this chain
-      $chain_params = $ignores[$chain_name] ? {
-        undef   => $custom_params,
-        default => $custom_params + { ignore => $ignores[$chain_name] },
-      }
+    # Add any ignores for this chain
+    $chain_params = $ignores[$chain_name] ? {
+      undef   => $custom_chain_params,
+      default => $custom_chain_params + { ignore => $ignores[$chain_name] },
+    }
 
-      # Debugging
-      # $chain_params.each | $key, $val | {
-      #   notify {"FWchain ${chain_name} ${key} ${val}" :}
-      # }
+    # Debugging
+    # $chain_params.each | $key, $val | {
+    #   notify {"FWchain ${chain_name} ${key} ${val}" :}
+    # }
 
-      firewallchain { $chain_name :
-        * => $chain_params,
-      }
+    firewallchain { $chain_name :
+      * => $chain_params,
     }
   }
 
