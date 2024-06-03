@@ -26,14 +26,14 @@ include profile_firewall
 
 The following parameters are available in the `profile_firewall` class:
 
-* [`ignores`](#ignores)
-* [`ignore_chain_prefixes`](#ignore_chain_prefixes)
-* [`pre`](#pre)
-* [`post`](#post)
-* [`rules`](#rules)
-* [`inbuilt_chains`](#inbuilt_chains)
+* [`ignores`](#-profile_firewall--ignores)
+* [`ignore_chain_prefixes`](#-profile_firewall--ignore_chain_prefixes)
+* [`pre`](#-profile_firewall--pre)
+* [`post`](#-profile_firewall--post)
+* [`rules`](#-profile_firewall--rules)
+* [`inbuilt_chains`](#-profile_firewall--inbuilt_chains)
 
-##### <a name="ignores"></a>`ignores`
+##### <a name="-profile_firewall--ignores"></a>`ignores`
 
 Data type: `Hash`
 
@@ -45,7 +45,7 @@ Values must be an Array of strings in Ruby regex format.
 See README for some basic examples, or the following for more details:
 https://forge.puppet.com/puppetlabs/firewall/reference#firewallchain
 
-##### <a name="ignore_chain_prefixes"></a>`ignore_chain_prefixes`
+##### <a name="-profile_firewall--ignore_chain_prefixes"></a>`ignore_chain_prefixes`
 
 Data type: `Array`
 
@@ -54,7 +54,7 @@ All existing iptables chains will be collected by a custom fact.
 If any chain name starts with one of these prefixes, that chain, and
 any rules in that chain, will be ignored by Puppet.
 
-##### <a name="pre"></a>`pre`
+##### <a name="-profile_firewall--pre"></a>`pre`
 
 Data type: `Hash`
 
@@ -65,7 +65,7 @@ added before higher numbers.
 See README for some basic examples, or the following for more details:
 https://forge.puppet.com/puppetlabs/firewall/readme#beginning-with-firewall
 
-##### <a name="post"></a>`post`
+##### <a name="-profile_firewall--post"></a>`post`
 
 Data type: `Hash`
 
@@ -76,7 +76,7 @@ added before higher numbers.
 See README for some basic examples, or the following for more details:
 https://forge.puppet.com/puppetlabs/firewall/readme#beginning-with-firewall
 
-##### <a name="rules"></a>`rules`
+##### <a name="-profile_firewall--rules"></a>`rules`
 
 Data type: `Hash`
 
@@ -87,7 +87,7 @@ added before higher numbers.
 See README for some basic examples, or the following for more details:
 https://forge.puppet.com/puppetlabs/firewall/readme#beginning-with-firewall
 
-##### <a name="inbuilt_chains"></a>`inbuilt_chains`
+##### <a name="-profile_firewall--inbuilt_chains"></a>`inbuilt_chains`
 
 Data type: `Hash`
 
