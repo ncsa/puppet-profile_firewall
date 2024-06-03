@@ -44,3 +44,5 @@ profile_firewall::inbuilt_chains:
   INPUT:security:IPv6:
   OUTPUT:security:IPv4:
   OUTPUT:security:IPv6:
+
+  BROUTING:broute:ethernet:

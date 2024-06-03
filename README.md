@@ -2,6 +2,16 @@
 
 [![pdk-validate](https://github.com/ncsa/puppet-profile_firewall/actions/workflows/pdk-validate.yml/badge.svg)](https://github.com/ncsa/puppet-profile_firewall/actions/workflows/pdk-validate.yml) [![yamllint](https://github.com/ncsa/puppet-profile_firewall/actions/workflows/yamllint.yml/badge.svg)](https://github.com/ncsa/puppet-profile_firewall/actions/workflows/yamllint.yml)
 
+## Table of Contents
+
+1. [Description](#description)
+1. [Usage](#usage)
+1. [Limitations](#limitations)
+1. [Dependencies](#dependencies)
+1. [Reference](#reference)
+
+## Description
+
 Provides a base for iptables firewall
 
 By default this module will modify the firewall so that it will:
@@ -63,6 +73,18 @@ profile_firewall::ignores:
   POSTROUTING:nat:IPv4:
     - "-j CNI-"
 ```
+
+## Limitations
+
+### SUSE iptables Issues
+
+iptables under SUSE have a couple of issues:
+- There does not seem to be any iptables service showing up under `systemctl`.
+- The iptables rules this module creates do not seem to persist on reboot. They are getting
+  recreated on the initial Puppet agent runs after a reboot.
+
+We are unclear if these are issues with the OS itself or with how
+[puppetlabs/firewall](https://forge.puppet.com/modules/puppetlabs/firewall) configures this.
 
 ## Dependencies
 
