@@ -41,12 +41,12 @@ profile_firewall::ignores:
 ```
 
 :triangular_flag_on_post:
-Example for ignoring Docker Rule Chains (note you also need to add an ignore for any DOCKER virtual interfaces it created, since not all those rules will have the string docker or DOCKER in them)
+Example for ignoring Docker Rule Chains
 ```
 profile_firewall::ignores:
   INPUT:filter:IPv4: ["docker", "DOCKER"]
   OUTPUT:filter:IPv4: ["docker", "DOCKER"]
-  FORWARD:filter:IPv4: ["docker", "DOCKER"]
+  FORWARD:filter:IPv4: ["docker", "DOCKER", "br-.{12}"]
   DOCKER:filter:IPv4: "*"
   DOCKER:nat:IPv4: "*"
 ```
